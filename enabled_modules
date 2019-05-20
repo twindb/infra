@@ -1,0 +1,7 @@
+cloudflare
+github
+management_app
+prod/web_app
+prod/recovery_app
+stage/web_app
+stage/recovery_app2

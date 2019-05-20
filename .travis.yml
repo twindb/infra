@@ -1,0 +1,27 @@
+dist: xenial
+language: python
+sudo: required
+python:
+    - "3.7"
+
+before_install:
+    - openssl aes-256-cbc -K $encrypted_e718e6de09bb_key -iv $encrypted_e718e6de09bb_iv -in .env.tar.enc -out .env.tar -d
+    - tar xf .env.tar
+
+install:
+    - make install
+    - install-terraform
+
+script:
+- make script
+
+env:
+    global:
+        # AWS_ACCESS_KEY_ID
+        - secure: Uj88eRDpulu6Nt9XPVm6kPUthe6xY6zP25oUFScJInxHsfW5TUzmwAAiPNRJcbbr6sbQIXWG3OIA2POS3kcPL7LPTz0amndG+RLU8FfLekXhzr6wm13mUNDrbyWR/0AlvRpp4H33T7GvID/p5GeeTIbxoF5yfkEqwPk74AFu0cF9pkwFR6u4Qhq0dX0b+fOlnhNGjtG0a9Kf+4zv0N2mDddTzGQ64VOUkxYXGI9gYB1rSK6C4i6zGlSnlqyufVPzn/zz60h/Q1uajqxwUkzwjxnZy8a+uxxvGa5VFQ5gwvKMwhFBL/jeczTHB0y4GkbRwSZSo4lSdb7HccOtB8sa7wuLc+3LWoD+n3/VZ8JNislS1HVoIKSLj3vcrWkxz5UCcxIBHzveJFY22GXLWKl2z6kvccuXwl7yjMucsip9MjaByYyX4Lg8buEe/JCLM96wvBu2txt0w9ZV2z3ebOpT0KombPSZpL4WD+NWQySMrEeFKW9bveoGTTB3TiSKHD7kwyokSxgzkoJd0E8fCf0DZZMPpdwSRGy97h9AgRLPamjIyWdnkozMsfSpY0l4LcOFTM5b/ZYRPBVf0j3VPiGOu+rU8l+Y/4K2Wv8dWz6sUzj9fmXQ5Ctau5TX06As6wa9Wc/EC9QzoDnxjJGoJAD1+X4itbCYFxXmQ+WY1Yztiq8=
+        # AWS_SECRET_ACCESS_KEY
+        - secure: Rc2/XPA/DBeMhkOi/zd92RSMyfUBIoKQOMIqG4610KIRfLgsQSBvQrjkIZ/oSjjsC5eusHXMscwtnDKKxQsxVS/RQyi7CdQXV5cFz1OSc5UYkQtcICKQxUgiQDS6FmRgfjXSbUiydrfJ+v1Ges10x67+HuZsm/ZuQafuqsSoR14/IC1Trp/Y2Uu0vRoxNkm+PVPr5nxJie5pwJceDNBXOfKpwQHDMdzDAnEWcTc+RNCzKw3S87qgEitSLwO4s0PLkYdPqT8Y/Njt40cAmIlXYAkd6zCUHwQU8P/p7j5zJxHpeDrB5KlXvcQbg1AAWp0xJNyolgsya5FcWGhtHva6yH2lnV6iPj617kM8qUHUQBf/r2M2Y0IVEtwhgBqAFNm9abjAk1/vhq27tbydZn23lLSUeJW2nZxCR9g7e7HdbOvPF9N/osSL4oVKLuSuobN31pOoggVWTO9VJBV+r3jsfL9V3CI7oWWemA9e6XAGvc5JI1b7T8ck+2xXzqlq1kI+OTtwio1mWqDLWMxPOGSjnn6xCqpM18bT9rJL+HRVdshPDcoSWMVGrqb20FBHqBV88xzUMkyjsgtzg24bYq8R30youDiJ/OkCQmyq35DAP6+rUEnfnH8EmKdtcmr9I8TPJiZ+UjasSaSjTW+Naasbms2CjHvSGRsvrgtP0ZuVkE0=
+        # AWS_DEFAULT_REGION
+        - secure: BT4eOKB7XRNNbn/SrW6nLbdzZ5rEHWoRiRBkQy7uuJO4ikv5K2oPPj6QqxYDNA4eITNqN79nPoLr/2GwdYo7CZsA5eO3NPJGs94HgP4GLgZEBRNpT3OYIe6mtqHThffRo0hI77n+kAte4NXo8p4Fc1+r7xLk2Rychcc3Ach+gEkKLBoWHxeiR2rpqoYtduYsNmlfvFOwB8Or5oRTuVS51LpL/ttuZ4KnF5Lq7iHIVWxl1cXxdzFkiXUaRTFF2P5lSjmDpgtmPSlRBwVL/HGN+taHkxDpdtGX9pG/uwNhC/+kh9sDf2jQsCtN8gMYL/xaQtaHNbIxwS8c/22hqGlj6xahqkXni3/B3dZDKGjUG8OPMoLeopZS2gu9XBx3Wo9V1HjDTUXCI44eTEQpGdiCZZQ8ecA+iNmWZb3GDUGWZhsyaSZp3ocerV+fuYakGOZHt9xEnYZwgX50vlLf14JDSuI7PlZIYSF2ZHoUwIzLFQ0QS2I0EX0tRwTcB4dbAE5d69aPlr0+r6KOWkBO8vtII4cCFUWgNEsSBnW4dJvoWC7JB+AIdPhKBS5AumMLU0StGvVyVB/F+J9mleanqK5PiAh86CDdfcKa60+nhfNhMrQYfLZVoNigIA9eI985MrCPdAAyFBP3QUaqnMi+C4tytulW4hmQRoFKfdhKyXtZeNE=
+        # GITHUB_TOKEN
+        - secure: "Qw5KL6CJZOXt+hraAqwbEb0Q+j8VJoOyMFVsBT77bMaeKmcQF5FqUdPRcG4ezYzb1uac9I+7pDsLEhnkUV4odBXLoH0UOPk4E6zW+1sNr9dMI3IjvPm9n60NAfAbBnNNYn70L/RVqDLwmVf1Hn1UbBSewpdYJsiv+IP0hpYlSJDjMRtKwCeA3Ga+xT/LzFb47Kj7DKLPD0upop88RYCKrBnpg0xuHycE5/2luxakVrhlAnlyZABfDKRPae4SsYXlgVyW8zomVgO3N60YidB05R4RUhGUCUzG7G+us+dD7jeKZJ044uZFifO+yiNkk9/telRv1kaZFYFBCyQQpBZ+W6EyVDV7/upJvJJci5bzlgyShUzv6cCr4m0aIFFTNbCn6SSnG35bPu+UbBA6M0rADDl7daAbccWgiPlhsM3zqCA3X0n/xFdMietH/eFIcKMjuoiHbhASK/zzCJZAVw8SRB7YJ121ZjrebC2+AXFXG8HIU1GQd9uavVwsGHMLSoYa1brkke0u5v4RoA6S7Z9DbXMipxUUtHvD6Q3ZUFNG8TYDjT7MRm5kigL3Bh3gWojcl6yqd65f7eDDi1IU3CIP19CqsIQ+YgPyk8k847UOFgiqHDnmEeadGwaapjhOLXOsfRa71pq6UN4nZXM20/H+z1IMiEYrra8K6nK5UMPdIRA="

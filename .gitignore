@@ -1,0 +1,12 @@
+/.idea/
+.terraform/
+/terraform/terraform.tfvars
+*.pem
+.DS_Store
+.env
+/.coverage
+/.eggs/
+__pycache__
+*.egg-info
+/build/
+/dist/
