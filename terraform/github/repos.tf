@@ -59,6 +59,7 @@ module "infra" {
     name = "infra"
     description = "TwinDB infrastructure"
     has_travis = true
+    private = false
 }
 
 module "monitoring" {
