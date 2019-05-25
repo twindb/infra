@@ -88,24 +88,25 @@ resource "aws_security_group" "web_app_sg" {
 }
 
 module "web_app" {
-  source = "github.com/twindb/twindb-terraform-modules//web_app?ref=master"
-  web_sg_id = "${aws_security_group.web_app_sg.id}"
-  web_public_subnet_id = "${module.web_app_network.public_subnet_id}"
-  web_instance_type = "m4.large"
-  ssl_cert_arn = "arn:aws:acm:us-east-1:100576059692:certificate/2ccf8b5e-1c57-4c26-bbc1-e0858c0d2a29"
-  database_instance_type = "t2.medium"
-  environment = "production"
-  connection_draining_timeout = "60"
-  elb_name = "twindb"
-  key_name = "deployer"
-  web_subnet_id = "${module.web_app_network.private_subnet_id}"
-  idle_timeout = "60"
-  website_database_bucket = "twindb-website-database"
-  website_upload_bucket = "twindb-website-uploads"
-  website_uploads_s3_tags = "${var.website_uploads_s3_tags}"
-  website_database_s3_uploads_tags = "${var.website_database_s3_uploads_tags}"
-  ami = "ami-46c1b650"
-    count = "1"
+    source                           = "../../modules/web_app/"
+    web_sg_id                        = "${aws_security_group.web_app_sg.id}"
+    web_public_subnet_id             = "${module.web_app_network.public_subnet_id}"
+    web_instance_type                = "m4.large"
+    ssl_cert_arn                     = "arn:aws:acm:us-east-1:100576059692:certificate/2ccf8b5e-1c57-4c26-bbc1-e0858c0d2a29"
+    database_instance_type           = "t2.medium"
+    environment                      = "production"
+    connection_draining_timeout      = 60
+    elb_name                         = "twindb"
+    key_name                         = "deployer"
+    web_subnet_id                    = "${module.web_app_network.private_subnet_id}"
+    idle_timeout                     = 60
+    website_database_bucket          = "twindb-website-database"
+    website_upload_bucket            = "twindb-website-uploads"
+    website_uploads_s3_tags          = "${var.website_uploads_s3_tags}"
+    website_database_s3_uploads_tags = "${var.website_database_s3_uploads_tags}"
+    ami                              = "ami-46c1b650"
+    count                            = 1
+    health_check_target              = "HTTP:8080/"
 }
 
 resource "cloudflare_record" "twindb" {
