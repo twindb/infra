@@ -8,7 +8,7 @@ data "aws_vpc" "default_vpc" {
 module "web_app_network" {
   source = "../../modules/service_network"
   environment = "production"
-  dest_app_name = "web_app"
+  service_name = "web_app"
   vpc_subnets_cidr_blocks = "${var.vpc_web_subnet_cidr_blocks}"
   public_subnet_tag = "${var.web_public_subnet_tag_prod}"
   private_subnet_tag = "${var.web_private_subnet_tag_prod}"

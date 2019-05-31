@@ -74,35 +74,27 @@ web_public_subnet_tag_prod = {
   Name = "Production web public subnet"
 }
 
-web_public_subnet_tag_stage = {
-  Name = "Staging web public subnet"
-}
-
 web_private_subnet_tag_prod = {
   Name = "Production web private subnet"
-}
-
-web_private_subnet_tag_stage = {
-  Name = "Staging web private subnet"
 }
 
 web_default_rt_prod = {
   Name = "Production default web route table"
 }
 
-web_default_rt_stage = {
-  Name = "Staging default web route table"
-}
-
 web_private_rt_prod = {
   Name = "Production private web route table"
 }
 
-web_private_rt_stage = {
-  Name = "Staging private web route table"
-}
 ###
-vpc_cidr_list = ["10.0.0.0/16", "10.1.0.0/16", "10.2.0.0/16", "10.3.0.0/16", "10.5.0.0/16", "10.8.0.0/16"]
+vpc_cidr_list = [
+    "10.0.0.0/16",
+    "10.1.0.0/16",
+    "10.2.0.0/16",
+    "10.3.0.0/16",
+    "10.5.0.0/16",
+    "10.8.0.0/16"
+]
 
 vpc_tags = {
   "10.0.0.0/16" = "VPC for default",
@@ -117,7 +109,6 @@ vpc_web_subnet_cidr_blocks = ["10.2.1.0/24", "10.2.0.0/24"]
 vpc_recovery_subnets_cidr_blocks = ["10.1.1.0/24", "10.1.0.0/24"]
 vpc_default_subnet_cidr_blocks = ["10.0.0.0/24", "10.0.1.0/24"]
 
-vpc_web_subnet_cidr_blocks_staging = ["10.5.0.0/25", "10.5.0.128/25"]
 
 vpc_recovery_subnets_cidr_blocks_staging = ["10.8.1.0/24", "10.8.2.0/24"]
 

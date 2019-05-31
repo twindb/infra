@@ -10,7 +10,7 @@ resource "aws_internet_gateway" "ig" {
   vpc_id = "${aws_vpc.vpc.id}"
 
   tags {
-    Name = "${var.environment} ${var.dest_app_name} gateway"
+    Name = "${var.environment} ${var.service_name} gateway"
   }
 }
 
@@ -45,7 +45,7 @@ resource "aws_nat_gateway" "nat_gw" {
   depends_on = ["aws_internet_gateway.ig"]
 
   tags {
-    Name = "${var.environment} ${var.dest_app_name} nat"
+    Name = "${var.environment} ${var.service_name} nat"
   }
   count = "${var.create_nat}"
 
