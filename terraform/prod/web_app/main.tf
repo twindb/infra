@@ -6,7 +6,7 @@ data "aws_vpc" "default_vpc" {
 }
 
 module "web_app_network" {
-  source = "github.com/twindb/twindb-terraform-modules//network?ref=master"
+  source = "../../modules/service_network"
   environment = "production"
   dest_app_name = "web_app"
   vpc_subnets_cidr_blocks = "${var.vpc_web_subnet_cidr_blocks}"

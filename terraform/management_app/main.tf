@@ -1,5 +1,5 @@
 module "management_network" {
-  source = "github.com/twindb/twindb-terraform-modules//network"
+  source = "../modules/service_network"
   environment = "production"
   dest_app_name = "jumphost"
   vpc_subnets_cidr_blocks = "${var.vpc_default_subnet_cidr_blocks}"
