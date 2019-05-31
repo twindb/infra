@@ -6,31 +6,28 @@ variable "cloudflare_token" {
     description = "Global API Key"
 }
 
-variable "vpc_cidr_list" {
-  type = "list"
-}
 variable "vpc_tags" {
   type = "map"
 }
 variable "web_app_sg_name" {}
 
-variable "vpc_web_subnet_cidr_blocks_staging" {
+variable "vpc_web_subnet_cidr_blocks" {
   type = "list"
 }
 
-variable "web_public_subnet_tag_stage" {
+variable "web_public_subnet_tag" {
   type = "map"
 }
 
-variable "web_private_subnet_tag_stage" {
+variable "web_private_subnet_tag" {
   type = "map"
 }
 
-variable "web_private_rt_stage" {
+variable "private_route_tags" {
   type = "map"
 }
 
-variable "web_default_rt_stage" {
+variable "default_route_tags" {
   type = "map"
 }
 
@@ -53,3 +50,5 @@ variable "website_uploads_s3_tags" {
 variable "website_database_s3_uploads_tags" {
   type = "map"
 }
+
+variable "vpc_cidr_block" {}

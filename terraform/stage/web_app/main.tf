@@ -1,19 +1,19 @@
-data "aws_vpc" "default_vpc" {
-  cidr_block = "${element(var.vpc_cidr_list, 0)}"
-  tags {
-    Name = "${var.vpc_tags[element(var.vpc_cidr_list, 0)]}"
-  }
-}
+//data "aws_vpc" "default_vpc" {
+//  cidr_block = "${element(var.vpc_cidr_list, 0)}"
+//  tags {
+//    Name = "${var.vpc_tags[element(var.vpc_cidr_list, 0)]}"
+//  }
+//}
 
-data "aws_route_table" "default_private_rt" {
-    vpc_id = "${data.aws_vpc.default_vpc.id}"
-    tags = "${var.default_private_rt_tag}"
-}
-
-data "aws_route_table" "default_public_rt" {
-    vpc_id = "${data.aws_vpc.default_vpc.id}"
-    tags = "${var.default_rt_table_tag}"
-}
+//data "aws_route_table" "default_private_rt" {
+//    vpc_id = "${data.aws_vpc.default_vpc.id}"
+//    tags = "${var.default_private_rt_tag}"
+//}
+//
+//data "aws_route_table" "default_public_rt" {
+//    vpc_id = "${data.aws_vpc.default_vpc.id}"
+//    tags = "${var.default_rt_table_tag}"
+//}
 
 // Archive
 resource "aws_s3_bucket" "website_database_archive" {
@@ -28,18 +28,21 @@ resource "aws_s3_bucket" "website_uploads_archive" {
     tags = "${var.website_uploads_s3_tags}"
 }
 
-//module "web_app_network" {
-//  source = "./../../modules/network"
-//  environment = "staging"
-//  dest_app_name = "web_app"
-//  vpc_subnets_cidr_blocks = "${var.vpc_web_subnet_cidr_blocks_staging}"
-//  public_subnet_tag = "${var.web_public_subnet_tag_stage}"
-//  private_subnet_tag = "${var.web_private_subnet_tag_stage}"
-//  private_rt_tag = "${var.web_private_rt_stage}"
-//  default_rt_tag = "${var.web_default_rt_stage}"
-//  vpc_tags = "${var.vpc_tags}"
-//  vpc_cidr_block = "${element(var.vpc_cidr_list, 4)}"
-//}
+module "web_app_network" {
+    source = "./../../modules/service_network"
+    service_name = "web_app"
+    environment = "staging"
+
+    vpc_cidr_block = "${var.vpc_cidr_block}"
+    vpc_subnets_cidr_blocks = "${var.vpc_web_subnet_cidr_blocks}"
+    vpc_tags = "${var.vpc_tags}"
+
+    public_subnet_tag = "${var.web_public_subnet_tag}"
+    private_subnet_tag = "${var.web_private_subnet_tag}"
+
+    default_rt_tag = "${var.default_route_tags}"
+    private_rt_tag = "${var.private_route_tags}"
+}
 //
 //resource "aws_vpc_peering_connection" "peering" {
 //  peer_vpc_id = "${data.aws_vpc.default_vpc.id}"

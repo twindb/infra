@@ -1,7 +1,7 @@
 variable "vpc_cidr_block" {}
 
 variable "environment" {}
-variable "dest_app_name" {}
+variable "service_name" {}
 
 variable "vpc_subnets_cidr_blocks" {
   type = "list"

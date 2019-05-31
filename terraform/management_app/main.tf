@@ -1,15 +1,15 @@
 module "management_network" {
-  source = "../modules/service_network"
-  environment = "production"
-  dest_app_name = "jumphost"
-  vpc_subnets_cidr_blocks = "${var.vpc_default_subnet_cidr_blocks}"
-  public_subnet_tag = "${var.default_public_subnet_tag}"
-  default_rt_tag = "${var.default_rt_table_tag}"
-  private_subnet_tag = "${var.default_private_subnet_tag}"
-  private_rt_tag = "${var.default_private_rt_tag}"
-  vpc_tags = "${var.vpc_tags}"
-  vpc_cidr_block = "${element(var.vpc_cidr_list, 0)}"
-  create_nat = 0
+    source = "../modules/service_network"
+    environment = "production"
+    service_name = "management"
+    vpc_subnets_cidr_blocks = "${var.vpc_default_subnet_cidr_blocks}"
+    public_subnet_tag = "${var.default_public_subnet_tag}"
+    default_rt_tag = "${var.default_rt_table_tag}"
+    private_subnet_tag = "${var.default_private_subnet_tag}"
+    private_rt_tag = "${var.default_private_rt_tag}"
+    vpc_tags = "${var.vpc_tags}"
+    vpc_cidr_block = "${element(var.vpc_cidr_list, 0)}"
+    create_nat = 0
 }
 
 resource "aws_security_group" "jumphost_sg" {
