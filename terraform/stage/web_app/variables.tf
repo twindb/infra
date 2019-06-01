@@ -6,49 +6,27 @@ variable "cloudflare_token" {
     description = "Global API Key"
 }
 
-variable "default_route_tags" {
-    description = "Tags for the default route"
-    type = "map"
-}
+variable "environment" {}
 
-variable "private_route_tags" {
-    description = "Tags for the private route"
-    type = "map"
-}
+variable "private_subnet_cidr" {}
+
+variable "public_subnet_cidr" {}
 
 variable "vpc_cidr_block" {
     description = "IP range assigned to the service network"
 }
 
-variable "vpc_tags" {
-    description = "Tags for the service VPC"
-    type = "map"
-}
+variable "service_name" {}
 
-variable "vpc_web_subnet_cidr_blocks" {
-    description = "List of IP ranges of all subnets in the service network"
-    type = "list"
-}
-
-variable "web_private_subnet_tag" {
-    description = "Tags for private subnet"
-    type = "map"
-}
-
-variable "web_public_subnet_tag" {
-    description = "Tags for public subnet"
-    type = "map"
-}
-
-variable "website_database_s3_uploads_tags" {
-    description = "Tags for S3 bucket with database backups"
-    type = "map"
-}
-
-variable "website_uploads_s3_tags" {
-    description = "Tags for S3 bucket with media files for website"
-  type = "map"
-}
+//variable "website_database_s3_uploads_tags" {
+//    description = "Tags for S3 bucket with database backups"
+//    type = "map"
+//}
+//
+//variable "website_uploads_s3_tags" {
+//    description = "Tags for S3 bucket with media files for website"
+//  type = "map"
+//}
 
 //variable "web_app_sg_name" {}
 //

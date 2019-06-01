@@ -19,29 +19,28 @@
 resource "aws_s3_bucket" "website_database_archive" {
     bucket = "twindb-website-database-staging-archive"
     region = "us-east-1"
-    tags = "${var.website_database_s3_uploads_tags}"
+    tags {
+        Name = "${var.environment} ${var.service_name} database backups"
+    }
 }
 
 resource "aws_s3_bucket" "website_uploads_archive" {
     bucket = "twindb-website-uploads-staging-archive"
     region = "us-east-1"
-    tags = "${var.website_uploads_s3_tags}"
+    tags {
+        Name = "${var.environment} ${var.service_name} media files"
+    }
 }
 
 module "web_app_network" {
-    source = "./../../modules/service_network"
-    service_name = "web_app"
-    environment = "staging"
+    source = "./../../modules/service_network_2"
+    service_name = "${var.service_name}"
+    environment = "${var.environment}"
 
     vpc_cidr_block = "${var.vpc_cidr_block}"
-    vpc_subnets_cidr_blocks = "${var.vpc_web_subnet_cidr_blocks}"
-    vpc_tags = "${var.vpc_tags}"
+    private_subnet_cidr = "${var.private_subnet_cidr}"
+    public_subnet_cidr = "${var.public_subnet_cidr}"
 
-    public_subnet_tag = "${var.web_public_subnet_tag}"
-    private_subnet_tag = "${var.web_private_subnet_tag}"
-
-    default_rt_tag = "${var.default_route_tags}"
-    private_rt_tag = "${var.private_route_tags}"
 }
 //
 //resource "aws_vpc_peering_connection" "peering" {
