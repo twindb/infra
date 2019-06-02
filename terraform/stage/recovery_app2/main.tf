@@ -1,20 +1,20 @@
-data "aws_vpc" "default_vpc" {
-  cidr_block = "${element(var.vpc_cidr_list, 0)}"
-  tags {
-    Name = "${var.vpc_tags[element(var.vpc_cidr_list, 0)]}"
-  }
-}
-
-data "aws_route_table" "default_private_rt" {
-    vpc_id = "${data.aws_vpc.default_vpc.id}"
-    tags = "${var.default_private_rt_tag}"
-}
-
-data "aws_route_table" "default_public_rt" {
-    vpc_id = "${data.aws_vpc.default_vpc.id}"
-    tags = "${var.default_rt_table_tag}"
-}
-
+//data "aws_vpc" "default_vpc" {
+//  cidr_block = "${element(var.vpc_cidr_list, 0)}"
+//  tags {
+//    Name = "${var.vpc_tags[element(var.vpc_cidr_list, 0)]}"
+//  }
+//}
+//
+//data "aws_route_table" "default_private_rt" {
+//    vpc_id = "${data.aws_vpc.default_vpc.id}"
+//    tags = "${var.default_private_rt_tag}"
+//}
+//
+//data "aws_route_table" "default_public_rt" {
+//    vpc_id = "${data.aws_vpc.default_vpc.id}"
+//    tags = "${var.default_rt_table_tag}"
+//}
+//
 //module "recovery_app_network" {
 //  source = "./../../modules/network"
 //  environment = "staging"

@@ -39,7 +39,7 @@ resource "aws_route" "public_routes" {
 data "aws_route_table" "default_private_rt" {
     vpc_id = "${data.aws_vpc.default_vpc.id}"
     tags = {
-        Name = "Default VPC private"
+        Name = "prod management private route table"
     }
 
 }
@@ -47,7 +47,7 @@ data "aws_route_table" "default_private_rt" {
 data "aws_route_table" "default_public_rt" {
   vpc_id = "${data.aws_vpc.default_vpc.id}"
   tags = {
-      Name = "Main routing table for VPC default"
+      Name = "prod management default route table"
   }
 }
 
