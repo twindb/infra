@@ -1,7 +1,6 @@
 admins = [
     "aleks",
-    "maksym.kryva",
-    "test.admin"
+    "maksym.kryva"
 ]
 
 environment = "prod"
