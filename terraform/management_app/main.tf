@@ -217,6 +217,7 @@ EOF
 # Admin users
 resource "aws_iam_user" "maksym_kryva" {
     name = "maksym.kryva"
+    force_destroy = true
 }
 
 resource "aws_iam_access_key" "maskym_kryva_key" {
@@ -225,6 +226,7 @@ resource "aws_iam_access_key" "maskym_kryva_key" {
 
 resource "aws_iam_user" "aleks" {
     name = "aleks"
+    force_destroy = true
 }
 
 resource "aws_iam_access_key" "aleks_key" {
