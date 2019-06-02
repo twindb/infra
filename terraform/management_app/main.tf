@@ -3,7 +3,7 @@ module "management_network" {
     environment = "${var.environment}"
     service_name = "${var.service_name}"
     public_subnet_cidr = "${var.public_subnet_cidr}"
-    vpc_cidr_block = "${var.vpc_cidr_block}"
+    vpc_cidr_block = "${var.management_cidr_block}"
     private_subnet_cidr = "${var.private_subnet_cidr}"
     create_nat = 0
 }

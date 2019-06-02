@@ -8,6 +8,10 @@ variable "cloudflare_token" {
 
 variable "environment" {}
 
+variable "management_cidr_block" {
+    description = "Management VPC cidr block"
+}
+
 variable "private_subnet_cidr" {}
 
 variable "public_subnet_cidr" {}

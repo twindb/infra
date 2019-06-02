@@ -27,7 +27,7 @@ init:  ## Run terraform init
 
 plan: init ## Run terraform plan
 	terraform get -update=true -no-color
-	terraform plan -var-file=$(TF_GLOBAL_VARS) -var-file=$(TF_VARS) -var-file=$(TF_LOCAL_VARS) -no-color
+	terraform plan -var-file=$(TF_GLOBAL_VARS) -var-file=$(TF_VARS) -var-file=$(TF_LOCAL_VARS) -input=false -no-color
 
 
 apply: init ## Run terraform apply

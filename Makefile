@@ -1,3 +1,4 @@
+SHELL = bash -e
 .DEFAULT_GOAL := help
 define PRINT_HELP_PYSCRIPT
 import re, sys

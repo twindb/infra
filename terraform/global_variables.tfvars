@@ -1,92 +1,4 @@
-
-sg_recovery_name = "recovery_sg"
-web_app_sg_name = "web_app_sg"
-
-vpc_default_tag = {
-  Name = "VPC for default"
-}
-
-default_private_subnet_tag = {
-  Name = "Default private"
-}
-
-default_public_subnet_tag = {
-  Name = "Default public"
-}
-
-default_private_rt_tag = {
-  Name = "Default VPC private"
-}
-
-default_rt_table_tag =  {
-  Name = "Main routing table for VPC default"
-}
-###
-
-recovery_vpc_tag_prod = {
-  Name = "VPC for recovery production"
-}
-
-recovery_public_subnet_tag_prod = {
-  Name = "Production recovery public subnet"
-}
-
-recovery_private_subnet_tag_prod = {
-  Name = "Production recovery private subnet"
-}
-
-recovery_default_rt_prod = {
-  Name = "Production default recovery route table"
-}
-
-recovery_private_rt_prod = {
-  Name = "Production private recovery route table"
-}
-###
-
-recover_vpc_tag_stage = {
-  Name = "VPC for recovery staging"
-}
-
-recovery_public_subnet_tag_stage = {
-  Name = "Staging recovery public subnet"
-}
-
-recovery_private_subnet_tag_stage = {
-  Name = "Staging recovery private subnet"
-}
-
-recovery_default_rt_stage = {
-  Name = "Staging default recovery route table"
-}
-
-recovery_private_rt_stage = {
-  Name = "Staging private recovery route table"
-}
-
-###
-
-web_vpc_tag_prod = {
-  Name = "VPC for recovery production"
-}
-
-web_public_subnet_tag_prod = {
-  Name = "Production web public subnet"
-}
-
-web_private_subnet_tag_prod = {
-  Name = "Production web private subnet"
-}
-
-web_default_rt_prod = {
-  Name = "Production default web route table"
-}
-
-web_private_rt_prod = {
-  Name = "Production private web route table"
-}
-
-###
+management_cidr_block = "10.0.0.0/16"
 vpc_cidr_list = [
     "10.0.0.0/16",
     "10.1.0.0/16",
@@ -96,37 +8,10 @@ vpc_cidr_list = [
     "10.8.0.0/16"
 ]
 
-vpc_tags = {
-  "10.0.0.0/16" = "VPC for default",
-  "10.1.0.0/16" = "Production recovery VPC",
-  "10.2.0.0/16" = "Production web VPC",
-  "10.3.0.0/16" = "Testing VPC",
-  "10.5.0.0/16" = "Staging web VPC",
-  "10.8.0.0/16" = "Staging recovery VPC"
-}
-
-vpc_web_subnet_cidr_blocks = ["10.2.1.0/24", "10.2.0.0/24"]
-vpc_recovery_subnets_cidr_blocks = ["10.1.1.0/24", "10.1.0.0/24"]
-vpc_default_subnet_cidr_blocks = ["10.0.0.0/24", "10.0.1.0/24"]
-
-
-vpc_recovery_subnets_cidr_blocks_staging = ["10.8.1.0/24", "10.8.2.0/24"]
-
-website_uploads_s3_tags = {
-  Name = "Twindb website uploads"
-}
-
-website_database_s3_uploads_tags = {
-  Name = "Twindb website database"
-}
-
-jumphost_instance_tag = {
-  Name = "jumphost"
-}
-
-jumphost_bucket_tag = {
-  Name = "jumphost"
-}
+//vpc_web_subnet_cidr_blocks = ["10.2.1.0/24", "10.2.0.0/24"]
+//vpc_recovery_subnets_cidr_blocks = ["10.1.1.0/24", "10.1.0.0/24"]
+//vpc_default_subnet_cidr_blocks = ["10.0.0.0/24", "10.0.1.0/24"]
+//vpc_recovery_subnets_cidr_blocks_staging = ["10.8.1.0/24", "10.8.2.0/24"]
 
 main_aws_key_pair_name = "deployer"
 

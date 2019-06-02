@@ -4,7 +4,7 @@ variable "admins" {
 
 variable "environment" {}
 
-variable "vpc_cidr_block" {}
+variable "management_cidr_block" {}
 
 variable "public_subnet_cidr" {}
 

@@ -33,7 +33,7 @@ resource "aws_s3_bucket" "website_uploads_archive" {
 }
 
 module "web_app_network" {
-    source = "./../../modules/service_network_2"
+    source = "./../../modules/service_network_3"
     service_name = "${var.service_name}"
     environment = "${var.environment}"
 
@@ -41,6 +41,7 @@ module "web_app_network" {
     private_subnet_cidr = "${var.private_subnet_cidr}"
     public_subnet_cidr = "${var.public_subnet_cidr}"
 
+    management_cidr_block = "${var.management_cidr_block}"
 }
 //
 //resource "aws_vpc_peering_connection" "peering" {
