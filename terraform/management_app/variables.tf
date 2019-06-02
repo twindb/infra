@@ -1,3 +1,6 @@
+variable "admins" {
+    type = "list"
+}
 variable "cloudflare_email" {
     description = "Cloudflare Email Address"
 }

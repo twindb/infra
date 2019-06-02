@@ -22,7 +22,8 @@ resource "aws_security_group" "jumphost_sg" {
     to_port = 22
     protocol = "tcp"
     cidr_blocks = [
-      "0.0.0.0/0"]
+      "0.0.0.0/0"
+    ]
   }
 
   ingress {
@@ -30,7 +31,8 @@ resource "aws_security_group" "jumphost_sg" {
     to_port = -1
     protocol = "icmp"
     cidr_blocks = [
-      "0.0.0.0/0"]
+      "0.0.0.0/0"
+    ]
   }
 
   egress {
@@ -38,7 +40,8 @@ resource "aws_security_group" "jumphost_sg" {
     from_port = 0
     to_port = 0
     cidr_blocks = [
-      "0.0.0.0/0"]
+      "0.0.0.0/0"
+    ]
   }
 
   tags {
@@ -211,49 +214,4 @@ resource "aws_iam_user_policy" "twindb_backup_ci" {
 }
 EOF
     user = "${aws_iam_user.twindb_backup_ci.name}"
-}
-
-
-# Admin users
-resource "aws_iam_user" "maksym_kryva" {
-    name = "maksym.kryva"
-    force_destroy = true
-}
-
-resource "aws_iam_access_key" "maskym_kryva_key" {
-    user = "${aws_iam_user.maksym_kryva.name}"
-}
-
-resource "aws_iam_user" "aleks" {
-    name = "aleks"
-    force_destroy = true
-}
-
-resource "aws_iam_access_key" "aleks_key" {
-    user = "${aws_iam_user.aleks.name}"
-
-}
-
-resource "aws_iam_user_policy_attachment" "maksym_kryva_policy" {
-    user       = "${aws_iam_user.maksym_kryva.name}"
-    policy_arn = "arn:aws:iam::aws:policy/AdministratorAccess"
-}
-resource "aws_iam_user_policy_attachment" "aleks_policy" {
-    user       = "${aws_iam_user.aleks.name}"
-    policy_arn = "arn:aws:iam::aws:policy/AdministratorAccess"
-}
-
-resource "aws_iam_user" "terraform_ci_user" {
-    name = "terraform"
-}
-
-resource "aws_iam_user_policy_attachment" "terraform_policy" {
-    user       = "${aws_iam_user.terraform_ci_user.name}"
-    policy_arn = "arn:aws:iam::aws:policy/AdministratorAccess"
-}
-
-
-resource "aws_iam_access_key" "terraform_ci_user" {
-    user = "${aws_iam_user.terraform_ci_user.name}"
-
 }
