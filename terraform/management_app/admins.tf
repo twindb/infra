@@ -1,15 +1,10 @@
-resource "aws_iam_user" "admins" {
-    name = "${element(var.admins, count.index)}"
-    count = "${length(var.admins)}"
+module "admin_0" {
+    source = "../modules/admin_iam_user"
+    user = "${element(var.admins, 0)}"
 }
 
-resource "aws_iam_access_key" "admin_keys" {
-    user = "${element(var.admins, count.index)}"
-    count = "${length(var.admins)}"
-}
-
-resource "aws_iam_user_policy_attachment" "admin_policy" {
-    user = "${element(var.admins, count.index)}"
-    policy_arn = "arn:aws:iam::aws:policy/AdministratorAccess"
-    count = "${length(var.admins)}"
+module "admin_1" {
+    source = "../modules/admin_iam_user"
+    user = "${element(var.admins, 1)}"
+    force_destroy = true
 }
