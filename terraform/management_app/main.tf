@@ -1,14 +1,10 @@
 module "management_network" {
-    source = "../modules/service_network"
-    environment = "production"
-    service_name = "management"
-    vpc_subnets_cidr_blocks = "${var.vpc_default_subnet_cidr_blocks}"
-    public_subnet_tag = "${var.default_public_subnet_tag}"
-    default_rt_tag = "${var.default_rt_table_tag}"
-    private_subnet_tag = "${var.default_private_subnet_tag}"
-    private_rt_tag = "${var.default_private_rt_tag}"
-    vpc_tags = "${var.vpc_tags}"
-    vpc_cidr_block = "${element(var.vpc_cidr_list, 0)}"
+    source = "../modules/service_network_2"
+    environment = "${var.environment}"
+    service_name = "${var.service_name}"
+    public_subnet_cidr = "${var.public_subnet_cidr}"
+    vpc_cidr_block = "${var.vpc_cidr_block}"
+    private_subnet_cidr = "${var.private_subnet_cidr}"
     create_nat = 0
 }
 
@@ -69,15 +65,15 @@ resource "aws_key_pair" "secondary_key_pair" {
 ### TESTING ###
 
 resource "aws_vpc" "testing_vpc" {
-  cidr_block = "${element(var.vpc_cidr_list, 3)}"
+  cidr_block = "10.3.0.0/16"
 
   tags {
-    Name = "${var.vpc_tags[element(var.vpc_cidr_list, 3)]}"
+    Name = "${var.environment} ${var.service_name} testing VPC"
   }
 }
 
 resource "aws_subnet" "testing_vpc_subnet" {
-  cidr_block = "${element(var.vpc_cidr_list, 3)}"
+  cidr_block = "10.3.0.0/16"
   vpc_id = "${aws_vpc.testing_vpc.id}"
   map_public_ip_on_launch = true
   tags {
@@ -118,19 +114,19 @@ resource "aws_route" "testing_ig" {
 
 resource "aws_route" "public_route" {
   route_table_id = "${aws_default_route_table.testing.id}"
-  destination_cidr_block = "${element(var.vpc_cidr_list, 0)}"
+  destination_cidr_block = "10.0.0.0/16"
   vpc_peering_connection_id = "${aws_vpc_peering_connection.testing_peering.id}"
 }
 
 resource "aws_route" "testing_to_default" {
   route_table_id = "${module.management_network.default_rt_id}"
-  destination_cidr_block = "${element(var.vpc_cidr_list, 3)}"
+  destination_cidr_block = "10.3.0.0/16"
   vpc_peering_connection_id = "${aws_vpc_peering_connection.testing_peering.id}"
 }
 
 resource "aws_route" "testing_to_default_private" {
   route_table_id = "${module.management_network.private_rt_id}"
-  destination_cidr_block = "${element(var.vpc_cidr_list, 3)}"
+  destination_cidr_block = "10.3.0.0/16"
   vpc_peering_connection_id = "${aws_vpc_peering_connection.testing_peering.id}"
 }
 
