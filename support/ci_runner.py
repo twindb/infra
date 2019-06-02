@@ -1,14 +1,16 @@
 """Module runs a job in Travis-CI."""
 import logging
-from os import environ, path as osp
+from os import environ, path as osp, EX_SOFTWARE
 from subprocess import Popen, PIPE
 
 # noinspection PyPackageRequirements
 import click
 
 from support.post_plan import post_comment
+from support.sectionless_configparser import SectionLessConfigParser
 
 LOG = logging.getLogger(__name__)
+DEFAULT_TERRAFORM_VARS = '.env/terraform.tfvars'
 
 
 def get_action(branch=None, pull_request=False):
@@ -228,6 +230,18 @@ def render_comment(status):
     return comment
 
 
+def setup_environment(config_path=DEFAULT_TERRAFORM_VARS):
+    """
+    Read AWS variables from Terraform config and set them
+    as environment variables
+    """
+    parser = SectionLessConfigParser()
+    parser.read(config_path)
+    environ['AWS_ACCESS_KEY_ID'] = parser.get('aws_access_key')
+    environ['AWS_SECRET_ACCESS_KEY'] = parser.get('aws_secret_key')
+    environ['GITHUB_TOKEN'] = parser.get('github_token')
+
+
 @click.command()
 @click.argument('module_name', nargs=-1)
 @click.option(
@@ -236,7 +250,13 @@ def render_comment(status):
     help='Path to directory with Terraform modules',
     show_default=True,
 )
-def ci_runner(modules_path, module_name):
+@click.option(
+    '--force-run',
+    help='Force to run terraform action',
+    is_flag=True,
+    default=False
+)
+def ci_runner(modules_path, module_name, force_run):
     """
     Run CI/CD job in Travis-CI.
 
@@ -253,10 +273,12 @@ def ci_runner(modules_path, module_name):
         branch=environ.get('TRAVIS_BRANCH', None),
         pull_request=pull_request
     )
+
+    setup_environment('.env/terraform.tfvars')
     status = {}
     for mod in module_name:
         LOG.info('Processing %s', mod)
-        if pull_request or action == 'apply':
+        if pull_request or action == 'apply' or force_run:
             status[mod] = run_job(
                 osp.join(
                     modules_path, mod
@@ -271,6 +293,7 @@ def ci_runner(modules_path, module_name):
                     mod,
                     status[mod]['stderr'].decode('utf-8')
                 )
+                exit(EX_SOFTWARE)
         else:
             LOG.info('Not a pull request. Skipping')
 
