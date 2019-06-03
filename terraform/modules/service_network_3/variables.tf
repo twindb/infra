@@ -8,6 +8,11 @@ variable "management_cidr_block" {
     description = "Management VPC cidr block"
 }
 
+variable "not_management_network" {
+    description = "True if this is NOT a management VPC"
+    default = true
+}
+
 variable "private_subnet_cidr" {
     description = "IP range for private network"
 }

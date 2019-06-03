@@ -1,5 +1,5 @@
 module "management_network" {
-    source = "../modules/service_network_2"
+    source = "../modules/service_network_3"
     environment = "${var.environment}"
     service_name = "${var.service_name}"
 
@@ -7,7 +7,9 @@ module "management_network" {
     public_subnet_cidr = "${var.public_subnet_cidr}"
     private_subnet_cidr = "${var.private_subnet_cidr}"
 
-    create_nat = 0
+    create_nat = false
+    management_cidr_block = "${var.management_cidr_block}"
+    not_management_network = false
 }
 
 resource "aws_security_group" "jumphost_sg" {
