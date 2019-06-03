@@ -31,3 +31,7 @@ variable "secondary_aws_key_pair_name" {}
 
 variable "secondary_aws_key_pair_public_key" {}
 
+variable "keypairs" {
+    description = "SSH keys"
+    type = "map"
+}
