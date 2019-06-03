@@ -43,38 +43,7 @@ module "web_app_network" {
 
     management_cidr_block = "${var.management_cidr_block}"
 }
-//
-//resource "aws_vpc_peering_connection" "peering" {
-//  peer_vpc_id = "${data.aws_vpc.default_vpc.id}"
-//  vpc_id = "${module.web_app_network.vpc_id}"
-//  auto_accept = true
-//}
-//
-//resource "aws_route" "private_routes" {
-//  route_table_id = "${module.web_app_network.private_rt_id}"
-//  vpc_peering_connection_id = "${aws_vpc_peering_connection.peering.id}"
-//  destination_cidr_block = "${element(var.vpc_default_subnet_cidr_blocks, count.index)}"
-//  count = "${length(var.vpc_default_subnet_cidr_blocks)}"
-//}
-//
-//resource "aws_route" "public_routes" {
-//  route_table_id = "${module.web_app_network.default_rt_id}"
-//  vpc_peering_connection_id = "${aws_vpc_peering_connection.peering.id}"
-//  destination_cidr_block = "${element(var.vpc_default_subnet_cidr_blocks, count.index)}"
-//  count = "${length(var.vpc_default_subnet_cidr_blocks)}"
-//}
-//
-//resource "aws_route" "private_routes_to_default" {
-//  route_table_id = "${data.aws_route_table.default_private_rt.id}"
-//  vpc_peering_connection_id = "${aws_vpc_peering_connection.peering.id}"
-//  destination_cidr_block = "${element(var.vpc_cidr_list, 4)}"
-//}
-//
-//resource "aws_route" "public_routes_to_default" {
-//  route_table_id = "${data.aws_route_table.default_public_rt.id}"
-//  vpc_peering_connection_id = "${aws_vpc_peering_connection.peering.id}"
-//  destination_cidr_block = "${element(var.vpc_cidr_list, 4)}"
-//}
+
 //
 //resource "aws_security_group" "web_app_sg" {
 //  name = "${var.web_app_sg_name}"
