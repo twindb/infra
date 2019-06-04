@@ -25,12 +25,6 @@ variable "aws_region" {
   default = "us-east-1"
 }
 
-variable "main_aws_key_pair_public_key" {}
-
-variable "secondary_aws_key_pair_name" {}
-
-variable "secondary_aws_key_pair_public_key" {}
-
 variable "keypairs" {
     description = "SSH keys"
     type = "map"
