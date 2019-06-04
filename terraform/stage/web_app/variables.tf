@@ -1,3 +1,7 @@
+variable "key_name" {
+    description = "SSH key name"
+}
+
 variable "cloudflare_email" {
     description = "Cloudflare Email Address"
 }

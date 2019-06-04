@@ -1,3 +1,6 @@
+output "default_security_group_id" {
+    value = "${aws_default_security_group.default_sg.id}"
+}
 output "private_subnet_id" {
   value = "${aws_subnet.private_subnet.id}"
 }

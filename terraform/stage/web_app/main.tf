@@ -44,6 +44,14 @@ module "web_app_network" {
     management_cidr_block = "${var.management_cidr_block}"
 }
 
+
+module "database" {
+    source            = "./../../modules/database"
+    subnet_id         = "${module.web_app_network.private_subnet_id}"
+    security_group_id = "${module.web_app_network.default_security_group_id}"
+    key_name          = "${var.key_name}"
+}
+
 //
 //resource "aws_security_group" "web_app_sg" {
 //  name = "${var.web_app_sg_name}"
