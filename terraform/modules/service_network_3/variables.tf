@@ -1,3 +1,8 @@
+variable "availability_zone_suffix" {
+    description = "Availability zone it calculated ad region + the suffix"
+    default     = "a"
+}
+
 variable "create_nat" {
     default = true
 }
@@ -19,6 +24,11 @@ variable "private_subnet_cidr" {
 
 variable "public_subnet_cidr" {
     description = "IP range for private network"
+}
+
+variable "aws_region" {
+    description = "AWS region"
+    default     = "us-east-1"
 }
 
 variable "service_name" {}

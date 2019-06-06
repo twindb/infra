@@ -8,3 +8,7 @@ provider "aws" {
     region = "us-east-1"
     version = "~> 2.11"
 }
+
+provider "null" {
+    version = "~> 2.1"
+}

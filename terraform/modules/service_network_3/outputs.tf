@@ -20,3 +20,7 @@ output "private_rt_id" {
 output "vpc_id" {
   value = "${aws_vpc.vpc.id}"
 }
+
+output "depended_on" {
+    value = "${null_resource.dependency_setter.id}"
+}

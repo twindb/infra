@@ -24,4 +24,28 @@ resource "aws_instance" "database" {
         Name        = "database"
         Environment = "${var.environment}"
     }
+    provisioner "chef" {
+        version         = "14.12.9"
+        node_name       = "${self.private_dns}"
+        recreate_client = true
+        server_url      = "https://api.chef.io/organizations/twindb"
+        run_list        = [
+            "role[website_master]"
+        ]
+        user_key        = "${file("../../../.env/${var.chef_user}.pem")}"
+        secret_key      = "${file("../../../.env/encrypted_data_bag_secret")}"
+        user_name       = "${var.chef_user}"
+        connection {
+            host                = "${self.private_ip}"
+            user                = "${var.ssh_username}"
+            private_key         = "${file("../../../.env/deployer.key")}"
+            bastion_host        = "jumphost.twindb.com"
+            bastion_private_key = "${file("../../../.env/deployer.key")}"
+            bastion_port        = 22
+            bastion_user        = "${var.ssh_username}"
+        }
+    }
+    depends_on = [
+        "null_resource.dependency_getter",
+    ]
 }

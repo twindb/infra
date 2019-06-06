@@ -3,6 +3,11 @@ variable "ami" {
     default     = "ami-80861296"
 }
 
+variable "chef_user" {
+    description = "User on chef server. Must be admin"
+    default = "chef_twindb"
+}
+
 variable "data_volume_type" {
     description = "EBS volume type"
     default     = "gp2"
@@ -10,6 +15,10 @@ variable "data_volume_type" {
 variable "data_volume_size" {
     description = "Data volume size, GB"
     default     = "8"
+}
+
+variable "dependencies" {
+    type = "list"
 }
 
 variable "environment" {
@@ -43,3 +52,6 @@ variable "security_group_id" {
     description = "Security group id"
 }
 
+variable "ssh_username" {
+    default = "ubuntu"
+}

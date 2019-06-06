@@ -33,13 +33,13 @@ resource "aws_s3_bucket" "website_uploads_archive" {
 }
 
 module "web_app_network" {
-    source = "./../../modules/service_network_3"
-    service_name = "${var.service_name}"
-    environment = "${var.environment}"
+    source                = "./../../modules/service_network_3"
+    service_name          = "${var.service_name}"
+    environment           = "${var.environment}"
 
-    vpc_cidr_block = "${var.vpc_cidr_block}"
-    private_subnet_cidr = "${var.private_subnet_cidr}"
-    public_subnet_cidr = "${var.public_subnet_cidr}"
+    vpc_cidr_block        = "${var.vpc_cidr_block}"
+    private_subnet_cidr   = "${var.private_subnet_cidr}"
+    public_subnet_cidr    = "${var.public_subnet_cidr}"
 
     management_cidr_block = "${var.management_cidr_block}"
 }
@@ -50,6 +50,10 @@ module "database" {
     subnet_id         = "${module.web_app_network.private_subnet_id}"
     security_group_id = "${module.web_app_network.default_security_group_id}"
     key_name          = "${var.key_name}"
+    public_subnet_id  = "${module.web_app_network.public_subnet_id}"
+    dependencies = [
+        "${module.web_app_network.depended_on}"
+    ]
 }
 
 //
