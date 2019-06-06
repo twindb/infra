@@ -50,7 +50,6 @@ module "database" {
     subnet_id         = "${module.web_app_network.private_subnet_id}"
     security_group_id = "${module.web_app_network.default_security_group_id}"
     key_name          = "${var.key_name}"
-    public_subnet_id  = "${module.web_app_network.public_subnet_id}"
     dependencies = [
         "${module.web_app_network.depended_on}"
     ]
