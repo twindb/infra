@@ -183,8 +183,8 @@ module "twindb-table-compare" {
 module "twindb-xtrabackup-24" {
     source  = "twindb/github-repo/twindb"
     version = "0.1.0"
-    name = "twindb-xtrabackup-80"
-    description = "TwinDB Package of Percona Xtrabackup 8.0"
+    name = "twindb-xtrabackup-24"
+    description = "TwinDB Package of Percona Xtrabackup 2.4"
     has_issues = true
     private = false
 }
