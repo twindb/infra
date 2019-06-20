@@ -140,6 +140,14 @@ module "recovery" {
     description = "TwinDB Data Recovery Portal"
 }
 
+module "terraform-twindb-github-repo" {
+    source = "../modules/twindb-github-repo/"
+    name = "terraform-twindb-github-repo"
+    description = "GitHub workflow terraform module"
+    has_issues = true
+    private = false
+}
+
 module "twindb" {
     source = "../modules/twindb-gitflow-repo/"
     name = "twindb"
