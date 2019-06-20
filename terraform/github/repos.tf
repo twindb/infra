@@ -180,6 +180,15 @@ module "twindb-table-compare" {
     has_travis = true
 }
 
+module "twindb-xtrabackup-24" {
+    source  = "twindb/github-repo/twindb"
+    version = "0.1.0"
+    name = "twindb-xtrabackup-80"
+    description = "TwinDB Package of Percona Xtrabackup 8.0"
+    has_issues = true
+    private = false
+}
+
 module "twindb-xtrabackup-80" {
     source = "../modules/twindb-github-repo/"
     name = "twindb-xtrabackup-80"
