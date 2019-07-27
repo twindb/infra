@@ -1,4 +1,5 @@
 """Module runs a job in Travis-CI."""
+import json
 import logging
 from os import environ, path as osp, EX_SOFTWARE
 from subprocess import Popen, PIPE
@@ -10,7 +11,7 @@ from support.post_plan import post_comment
 from support.sectionless_configparser import SectionLessConfigParser
 
 LOG = logging.getLogger(__name__)
-DEFAULT_TERRAFORM_VARS = '.env/terraform.tfvars'
+DEFAULT_TERRAFORM_VARS = '.env/tf_env.json'
 
 
 def get_action(branch=None, pull_request=False):
@@ -235,11 +236,15 @@ def setup_environment(config_path=DEFAULT_TERRAFORM_VARS):
     Read AWS variables from Terraform config and set them
     as environment variables
     """
-    parser = SectionLessConfigParser()
-    parser.read(config_path)
-    environ['AWS_ACCESS_KEY_ID'] = parser.get('aws_access_key')
-    environ['AWS_SECRET_ACCESS_KEY'] = parser.get('aws_secret_key')
-    environ['GITHUB_TOKEN'] = parser.get('github_token')
+    with open(config_path) as fp:
+        tf_vars = json.loads(fp.read())
+
+    environ['AWS_ACCESS_KEY_ID'] = tf_vars['TF_VAR_aws_access_key']
+    environ['AWS_SECRET_ACCESS_KEY'] = tf_vars['TF_VAR_aws_secret_key']
+    environ['GITHUB_TOKEN'] = tf_vars['TF_VAR_github_token']
+
+    for k, v in tf_vars.items():
+        environ[k] = v
 
 
 @click.command()
@@ -256,7 +261,12 @@ def setup_environment(config_path=DEFAULT_TERRAFORM_VARS):
     is_flag=True,
     default=False
 )
-def ci_runner(modules_path, module_name, force_run):
+@click.option(
+    '--env-file',
+    help='A JSON file with terraform environment variables',
+    default=DEFAULT_TERRAFORM_VARS
+)
+def ci_runner(modules_path, module_name, force_run, env_file):
     """
     Run CI/CD job in Travis-CI.
 
@@ -274,7 +284,7 @@ def ci_runner(modules_path, module_name, force_run):
         pull_request=pull_request
     )
 
-    setup_environment('.env/terraform.tfvars')
+    setup_environment(env_file)
     status = {}
     for mod in module_name:
         LOG.info('Processing %s', mod)
