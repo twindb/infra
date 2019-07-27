@@ -19,7 +19,7 @@
 resource "aws_s3_bucket" "website_database_archive" {
     bucket = "twindb-website-database-staging-archive"
     region = "us-east-1"
-    tags {
+    tags = {
         Name = "${var.environment} ${var.service_name} database backups"
     }
 }
@@ -27,7 +27,7 @@ resource "aws_s3_bucket" "website_database_archive" {
 resource "aws_s3_bucket" "website_uploads_archive" {
     bucket = "twindb-website-uploads-staging-archive"
     region = "us-east-1"
-    tags {
+    tags = {
         Name = "${var.environment} ${var.service_name} media files"
     }
 }

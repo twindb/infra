@@ -16,7 +16,7 @@ resource "github_branch_protection" "default_branch" {
     branch = "${var.default_branch}"
     enforce_admins = true
 
-    required_status_checks = {
+    required_status_checks {
         strict = true
         contexts = [
             "Travis CI - Branch",
@@ -31,7 +31,7 @@ resource "github_branch_protection" "release_branch" {
     branch = "${var.release_branch}"
     enforce_admins = true
 
-    required_status_checks = {
+    required_status_checks {
         strict = true
         contexts = [
             "Travis CI - Branch",
@@ -44,7 +44,6 @@ resource "github_repository_webhook" "slack" {
     events = [
         "*"
     ]
-    name = "web"
     repository = "${github_repository.twindb_repo.name}"
     configuration {
         url          = "${var.slack_url}"
@@ -61,7 +60,6 @@ resource "github_repository_webhook" "rtd" {
         "push",
         "pull_request"
     ]
-    name = "web"
     repository = "${github_repository.twindb_repo.name}"
     configuration {
         url          = "${var.rtd_url}"
@@ -82,7 +80,6 @@ resource "github_repository_webhook" "travis-ci" {
         "push",
         "repository"
     ]
-    name = "web"
     repository = "${github_repository.twindb_repo.name}"
     configuration {
         url          = "https://notify.travis-ci.org"
@@ -97,7 +94,6 @@ resource "github_repository_webhook" "registry_docker_hub" {
     events = [
         "push"
     ]
-    name = "web"
     repository = "${github_repository.twindb_repo.name}"
     configuration {
         url          = "https://registry.hub.docker.com/hooks/github"
@@ -112,7 +108,6 @@ resource "github_repository_webhook" "cloud_docker_hub" {
         "pull_request",
         "push"
     ]
-    name = "web"
     repository = "${github_repository.twindb_repo.name}"
     configuration {
         url          = "${var.docker_hub_url}"

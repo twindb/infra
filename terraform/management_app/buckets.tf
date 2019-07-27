@@ -10,7 +10,7 @@ resource "aws_s3_bucket" "twindb-terraform-states" {
         prevent_destroy = true
     }
 
-    tags {
+    tags = {
         Name = "Terraform State File Storage"
     }
 }
