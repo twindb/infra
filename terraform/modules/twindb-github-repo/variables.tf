@@ -13,7 +13,7 @@ variable "private" {
 }
 
 variable "has_branch_protection" {
-    default = true
+    default = 1
 }
 
 variable "has_issues" {
@@ -25,15 +25,15 @@ variable "has_downloads" {
 }
 
 variable "has_documentation" {
-    default = false
+    default = 0
 }
 
 variable "has_docker_hub" {
-    default = false
+    default = 0
 }
 
 variable "has_travis" {
-    default = false
+    default = 0
 }
 
 variable "homepage_url" {

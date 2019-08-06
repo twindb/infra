@@ -11,7 +11,6 @@ for line in sys.stdin:
 endef
 export PRINT_HELP_PYSCRIPT
 
-TF_VARS ?= ../../.env/terraform.tfvars
 TF_GLOBAL_VARS ?= ../global_variables.tfvars
 TF_LOCAL_VARS ?= /dev/null
 
@@ -27,10 +26,10 @@ init:  ## Run terraform init
 
 plan: init ## Run terraform plan
 	terraform get -update=true -no-color
-	terraform plan -var-file=$(TF_GLOBAL_VARS) -var-file=$(TF_VARS) -var-file=$(TF_LOCAL_VARS) -input=false -no-color
+	terraform plan -var-file=$(TF_GLOBAL_VARS) -var-file=$(TF_LOCAL_VARS) -input=false -no-color
 
 
 apply: init ## Run terraform apply
 	terraform get -update=true -no-color
-	terraform apply -var-file=$(TF_GLOBAL_VARS) -var-file=$(TF_VARS) -var-file=$(TF_LOCAL_VARS) -input=false -auto-approve
+	terraform apply -var-file=$(TF_GLOBAL_VARS) -var-file=$(TF_LOCAL_VARS) -input=false -auto-approve
 

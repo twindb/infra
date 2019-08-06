@@ -7,7 +7,7 @@ from tempfile import mkdtemp
 
 LOG = logging.getLogger(__name__)
 TERRAFORM_DISTRIBUTION_URL = "https://releases.hashicorp.com/terraform/" \
-                             "0.11.13/terraform_0.11.13_linux_amd64.zip"
+                             "0.12.5/terraform_0.12.5_linux_amd64.zip"
 BINDIR = '/usr/local/bin/'
 
 def install_terraform():

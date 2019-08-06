@@ -19,7 +19,7 @@
 resource "aws_s3_bucket" "website_database_archive" {
     bucket = "twindb-website-database-staging-archive"
     region = "us-east-1"
-    tags {
+    tags = {
         Name = "${var.environment} ${var.service_name} database backups"
     }
 }
@@ -27,21 +27,9 @@ resource "aws_s3_bucket" "website_database_archive" {
 resource "aws_s3_bucket" "website_uploads_archive" {
     bucket = "twindb-website-uploads-staging-archive"
     region = "us-east-1"
-    tags {
+    tags = {
         Name = "${var.environment} ${var.service_name} media files"
     }
-}
-
-module "web_app_network" {
-    source = "./../../modules/service_network_3"
-    service_name = "${var.service_name}"
-    environment = "${var.environment}"
-
-    vpc_cidr_block = "${var.vpc_cidr_block}"
-    private_subnet_cidr = "${var.private_subnet_cidr}"
-    public_subnet_cidr = "${var.public_subnet_cidr}"
-
-    management_cidr_block = "${var.management_cidr_block}"
 }
 
 //
