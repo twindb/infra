@@ -91,6 +91,13 @@ module "pyetcd" {
     has_travis = 1
 }
 
+module "terraform-ci" {
+    source = "../modules/twindb-github-repo_2/"
+    name = "terraform-ci"
+    description = "Helper tool to merry Terraform and Travis-CI"
+    private = false
+}
+
 module "terraform-twindb-github-repo" {
     source = "../modules/twindb-github-repo/"
     name = "terraform-twindb-github-repo"
