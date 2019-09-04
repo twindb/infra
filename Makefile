@@ -37,11 +37,21 @@ install: ## install the package
 script:
 	ci-runner $(shell cat enabled_modules)
 
-
 .PHONY: plan
-plan:  ## run terraform plan on the all modules
-	@for module in $(shell cat enabled_modules); \
+plan: install-hooks ## run terraform plan on the all modules
+	@for k in $$(cat .env/tf_env.json | jq -r 'keys[]'); \
+	do \
+		echo "Setting $$k"; \
+		v=$$(jq -r ".$$k" .env/tf_env.json) ; \
+		declare -xr $$k=$$v; \
+	done ; \
+	for module in $(shell cat enabled_modules); \
 	do \
 		echo $$module ; \
 		make -C "terraform/$$module" plan ; \
 	done
+
+.PHONY: install-hooks
+install-hooks:
+	test -L .git/hooks/pre-commit || ln -fs ../../hooks/pre-commit .git/hooks/pre-commit
+	chmod +x .git/hooks/pre-commit
