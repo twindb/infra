@@ -17,8 +17,3 @@ variable "key_pair_name" {
 variable "root_volume_size" {
     default = 8
 }
-
-variable "chef_user" {
-    description = "User on chef server. Must be admin"
-    default = "chef_twindb"
-}
