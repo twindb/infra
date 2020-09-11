@@ -1,5 +1,6 @@
 admins = [
     "aleks",
+    "terraform"
 ]
 
 environment = "prod"
