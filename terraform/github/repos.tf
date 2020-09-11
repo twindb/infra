@@ -1,14 +1,15 @@
-//module "backup" {
-//    source = "../modules/twindb-gitflow-repo/"
-//    name = "backup"
-//    description = "TwinDB Backup"
-//    private = false
-//
-//    has_travis = 1
-//
-//    has_documentation = 1
-//    rtd_url = "https://readthedocs.org/api/v2/webhook/twindb-backup/58216/"
-//}
+module "backup" {
+    source = "../modules/twindb-github-repo/"
+    name = "backup"
+    description = "TwinDB Backup"
+    homepage_url = "https://twindb-backup.readthedocs.io/en/stable/"
+    private = false
+
+    has_travis = 0
+
+    has_documentation = 0
+    rtd_url = "https://readthedocs.org/api/v2/webhook/twindb-backup/58216/"
+}
 //
 //module "dd-agent" {
 //    source = "../modules/twindb-github-repo/"
@@ -146,9 +147,9 @@
 //    has_travis = 1
 //}
 //
-//module "undrop-for-innodb" {
-//    source = "../modules/twindb-gitflow-repo/"
-//    name = "undrop-for-innodb"
-//    description = "TwinDB data recovery toolkit for MySQL/InnoDB"
-//    private = false
-//}
+module "undrop-for-innodb" {
+    source = "../modules/twindb-gitflow-repo/"
+    name = "undrop-for-innodb"
+    description = "TwinDB data recovery toolkit for MySQL/InnoDB"
+    private = false
+}

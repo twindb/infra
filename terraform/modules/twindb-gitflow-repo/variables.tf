@@ -40,6 +40,10 @@ variable "has_travis" {
     default = 0
 }
 
+variable "has_slack" {
+    default = false
+}
+
 variable "homepage_url" {
     default = "https://twindb.com"
 }

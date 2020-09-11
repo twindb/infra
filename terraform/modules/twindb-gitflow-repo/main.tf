@@ -1,19 +1,19 @@
 resource "github_repository" "twindb_repo" {
-    name               = "${var.name}"
-    description        = "${var.description}"
-    default_branch     = "${var.default_branch}"
-    homepage_url       = "${var.homepage_url}"
-    has_downloads      = "${var.has_downloads}"
-    has_issues         = "${var.has_issues}"
-    private            = "${var.private}"
-    allow_rebase_merge = "${var.allow_rebase_merge}"
-    allow_squash_merge = "${var.allow_squash_merge}"
+    name               = var.name
+    description        = var.description
+    default_branch     = var.default_branch
+    homepage_url       = var.homepage_url
+    has_downloads      = var.has_downloads
+    has_issues         = var.has_issues
+    visibility         = var.private ? "private" : "public"
+    allow_rebase_merge = var.allow_rebase_merge
+    allow_squash_merge = var.allow_squash_merge
 }
 
 resource "github_branch_protection" "default_branch" {
-    count = "${var.has_branch_protection}"
-    repository = "${github_repository.twindb_repo.name}"
-    branch = "${var.default_branch}"
+    count = var.has_branch_protection
+    repository = github_repository.twindb_repo.name
+    branch = var.default_branch
     enforce_admins = true
 
     required_status_checks {
@@ -26,9 +26,9 @@ resource "github_branch_protection" "default_branch" {
 }
 
 resource "github_branch_protection" "release_branch" {
-    count = "${var.has_branch_protection}"
-    repository = "${github_repository.twindb_repo.name}"
-    branch = "${var.release_branch}"
+    count = var.has_branch_protection
+    repository = github_repository.twindb_repo.name
+    branch = var.release_branch
     enforce_admins = true
 
     required_status_checks {
@@ -41,35 +41,36 @@ resource "github_branch_protection" "release_branch" {
 }
 
 resource "github_repository_webhook" "slack" {
+    count = var.has_slack ? 1 : 0
     events = [
         "*"
     ]
-    repository = "${github_repository.twindb_repo.name}"
+    repository = github_repository.twindb_repo.name
     configuration {
-        url          = "${var.slack_url}"
+        url          = var.slack_url
         content_type = "json"
         insecure_ssl = false
     }
 }
 
 resource "github_repository_webhook" "rtd" {
-    count = "${var.has_documentation}"
+    count = var.has_documentation
     events = [
         "create",
         "delete",
         "push",
         "pull_request"
     ]
-    repository = "${github_repository.twindb_repo.name}"
+    repository = github_repository.twindb_repo.name
     configuration {
-        url          = "${var.rtd_url}"
+        url          = var.rtd_url
         content_type = "json"
         insecure_ssl = false
     }
 }
 
 resource "github_repository_webhook" "travis-ci" {
-    count = "${var.has_travis}"
+    count = var.has_travis
     events = [
         "create",
         "delete",
@@ -80,7 +81,7 @@ resource "github_repository_webhook" "travis-ci" {
         "push",
         "repository"
     ]
-    repository = "${github_repository.twindb_repo.name}"
+    repository = github_repository.twindb_repo.name
     configuration {
         url          = "https://notify.travis-ci.org"
         content_type = "form"
@@ -90,11 +91,11 @@ resource "github_repository_webhook" "travis-ci" {
 
 
 resource "github_repository_webhook" "registry_docker_hub" {
-    count = "${var.has_docker_hub}"
+    count = var.has_docker_hub
     events = [
         "push"
     ]
-    repository = "${github_repository.twindb_repo.name}"
+    repository = github_repository.twindb_repo.name
     configuration {
         url          = "https://registry.hub.docker.com/hooks/github"
         content_type = "json"
@@ -103,14 +104,14 @@ resource "github_repository_webhook" "registry_docker_hub" {
 }
 
 resource "github_repository_webhook" "cloud_docker_hub" {
-    count = "${var.has_docker_hub}"
+    count = var.has_docker_hub
     events = [
         "pull_request",
         "push"
     ]
-    repository = "${github_repository.twindb_repo.name}"
+    repository = github_repository.twindb_repo.name
     configuration {
-        url          = "${var.docker_hub_url}"
+        url          = var.docker_hub_url
         content_type = "json"
         insecure_ssl = false
     }
