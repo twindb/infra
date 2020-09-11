@@ -1,6 +1,7 @@
 """Module runs a job in Travis-CI."""
 import json
 import logging
+import sys
 from os import environ, path as osp, EX_SOFTWARE
 from subprocess import Popen, PIPE
 
@@ -8,7 +9,6 @@ from subprocess import Popen, PIPE
 import click
 
 from support.post_plan import post_comment
-from support.sectionless_configparser import SectionLessConfigParser
 
 LOG = logging.getLogger(__name__)
 DEFAULT_TERRAFORM_VARS = '.env/tf_env.json'
@@ -236,15 +236,15 @@ def setup_environment(config_path=DEFAULT_TERRAFORM_VARS):
     Read AWS variables from Terraform config and set them
     as environment variables
     """
-    with open(config_path) as fp:
-        tf_vars = json.loads(fp.read())
+    with open(config_path) as config_desc:
+        tf_vars = json.loads(config_desc.read())
 
     environ['AWS_ACCESS_KEY_ID'] = tf_vars['TF_VAR_aws_access_key']
     environ['AWS_SECRET_ACCESS_KEY'] = tf_vars['TF_VAR_aws_secret_key']
     environ['GITHUB_TOKEN'] = tf_vars['TF_VAR_github_token']
 
-    for k, v in tf_vars.items():
-        environ[k] = v
+    for k, value in tf_vars.items():
+        environ[k] = value
 
 
 @click.command()
@@ -303,7 +303,7 @@ def ci_runner(modules_path, module_name, force_run, env_file):
                     mod,
                     status[mod]['stderr'].decode('utf-8')
                 )
-                exit(EX_SOFTWARE)
+                sys.exit(EX_SOFTWARE)
         else:
             LOG.info('Not a pull request. Skipping')
 

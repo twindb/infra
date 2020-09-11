@@ -5,7 +5,7 @@ resource "github_team" "website-admins" {
 }
 
 resource "github_team_membership" "akuzminsky" {
-    team_id  = "${github_team.website-admins.id}"
+    team_id  = github_team.website-admins.id
     username = "akuzminsky"
     role     = "maintainer"
 }
@@ -18,12 +18,12 @@ resource "github_team" "website-devs" {
 }
 
 resource "github_team_membership" "website-devs-akuzminsky" {
-    team_id  = "${github_team.website-devs.id}"
+    team_id  = github_team.website-devs.id
     username = "akuzminsky"
     role     = "maintainer"
 }
 
 resource "github_team_membership" "website-devs-mkryva" {
-    team_id  = "${github_team.website-devs.id}"
+    team_id  = github_team.website-devs.id
     username = "mkryva"
 }
