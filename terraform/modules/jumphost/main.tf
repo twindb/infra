@@ -15,15 +15,6 @@ resource "aws_instance" "jumphost" {
     }
 }
 
-resource "aws_eip" "jumphost_eip" {
-  instance  = aws_instance.jumphost.id
-  vpc       = true
-}
-resource "aws_eip_association" "jumphost_assoc" {
-  instance_id   = aws_instance.jumphost.id
-  allocation_id = aws_eip.jumphost_eip.id
-}
-
 resource "aws_security_group" "jumphost_sg" {
     name        = "jumphost_sg"
     description = "Security group for a jumphost. Allows SSH and ICMP."
