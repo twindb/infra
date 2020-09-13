@@ -115,6 +115,7 @@ locals {
           ["wp", "--allow-root", "--path=/var/www/html", "plugin", "delete", "hello"],
           // ["wp", "--allow-root", "--path=/var/www/html", "plugin", "install", "https://downloads.wordpress.org/plugin/404-solution.2.22.10.zip"],
           ["wp", "--allow-root", "--path=/var/www/html", "plugin", "install", "https://downloads.wordpress.org/plugin/google-captcha.1.58.zip"],
+          ["wp", "--allow-root", "--path=/var/www/html", "plugin", "install", "https://downloads.wordpress.org/plugin/pure-chat.zip"],
           ["chown", "-R", "www-data:www-data", "/var/www/html/"],
           ["a2enmod", "rewrite"],
           ["a2enconf", "htaccess"],
