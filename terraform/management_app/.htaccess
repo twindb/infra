@@ -1,0 +1,3 @@
+RewriteEngine On
+
+Redirect 301 /how-to-recover-innodb-dictionary/ https://twindb.com/?p=73

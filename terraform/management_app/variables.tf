@@ -17,3 +17,20 @@ variable "keypairs" {
   description = "SSH keys"
   type        = map
 }
+
+variable "rds_credentials_secret_name" {
+  description = "Secret's name where rds credentials are stored"
+  default     = "/twindb.com/rds_credentials"
+}
+
+variable "rds_username" {
+  description = "Username to use to connect to the assigned RDS instance"
+}
+
+variable "rds_password" {
+  description = "Password to use to connect to the assigned RDS instance"
+}
+
+variable "rds_database" {
+  description = "Wordpress database name"
+}
