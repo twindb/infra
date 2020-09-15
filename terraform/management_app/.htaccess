@@ -1,6 +1,7 @@
 RewriteEngine On
 
 Redirect 301 /how-to-recover-innodb-dictionary/ https://twindb.com/?p=73
+Redirect 301 /undrop-tool-for-innodb/ /undrop-for-innodb/
 
 RewriteBase /
 RewriteRule ^index\.php$ - [L]
