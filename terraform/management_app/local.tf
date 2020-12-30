@@ -118,7 +118,7 @@ locals {
           ["wp", "--allow-root", "--path=/var/www/html", "theme", "update", "twentytwentyone"],
           ["wp", "--allow-root", "--path=/var/www/html", "plugin", "delete", "hello"],
           ["wp", "--allow-root", "--path=/var/www/html", "plugin", "install", "google-captcha"],
-          ["wp", "--allow-root", "--path=/var/www/html", "plugin", "update", "-all"],
+          ["wp", "--allow-root", "--path=/var/www/html", "plugin", "update", "--all"],
           ["chown", "-R", "www-data:www-data", "/var/www/html/"],
           ["a2enmod", "rewrite"],
           ["a2enconf", "htaccess"],
