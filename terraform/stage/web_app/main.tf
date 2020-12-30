@@ -16,21 +16,21 @@
 //}
 
 // Archive
-resource "aws_s3_bucket" "website_database_archive" {
-    bucket = "twindb-website-database-staging-archive"
-    region = "us-east-1"
-    tags = {
-        Name = "${var.environment} ${var.service_name} database backups"
-    }
-}
+//resource "aws_s3_bucket" "website_database_archive" {
+//    bucket = "twindb-website-database-staging-archive"
+//    region = "us-east-1"
+//    tags = {
+//        Name = "${var.environment} ${var.service_name} database backups"
+//    }
+//}
 
-resource "aws_s3_bucket" "website_uploads_archive" {
-    bucket = "twindb-website-uploads-staging-archive"
-    region = "us-east-1"
-    tags = {
-        Name = "${var.environment} ${var.service_name} media files"
-    }
-}
+//resource "aws_s3_bucket" "website_uploads_archive" {
+//    bucket = "twindb-website-uploads-staging-archive"
+//    region = "us-east-1"
+//    tags = {
+//        Name = "${var.environment} ${var.service_name} media files"
+//    }
+//}
 
 //
 //resource "aws_security_group" "web_app_sg" {
