@@ -92,9 +92,8 @@ locals {
           "php-mbstring",
           "php-mysql",
           "php-xml",
-          "php-zip"
-
-
+          "php-zip",
+          "php-tidy"
         ]
         runcmd : [
           ["wget", "-qO", "/var/run/latest.tar.gz", "https://wordpress.org/latest.tar.gz"],
@@ -118,9 +117,15 @@ locals {
           ["wp", "--allow-root", "--path=/var/www/html", "theme", "update", "twentytwentyone"],
           ["wp", "--allow-root", "--path=/var/www/html", "plugin", "delete", "hello"],
           ["wp", "--allow-root", "--path=/var/www/html", "plugin", "install", "google-captcha"],
+          ["wp", "--allow-root", "--path=/var/www/html", "plugin", "install", "webp-converter-for-media"],
+          ["wp", "--allow-root", "--path=/var/www/html", "plugin", "install", "w3-total-cache"],
           ["wp", "--allow-root", "--path=/var/www/html", "plugin", "update", "--all"],
           ["chown", "-R", "www-data:www-data", "/var/www/html/"],
           ["a2enmod", "rewrite"],
+          ["a2enmod", "expires"],
+          ["a2enmod", "ext_filter"],
+          ["a2enmod", "headers"],
+
           ["a2enconf", "htaccess"],
           ["systemctl", "restart", "apache2"],
         ]

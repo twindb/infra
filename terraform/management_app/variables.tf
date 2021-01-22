@@ -1,5 +1,5 @@
 variable "admins" {
-  type = list
+  type = list(any)
 }
 
 variable "environment" {}
@@ -15,7 +15,7 @@ variable "aws_region" {
 
 variable "keypairs" {
   description = "SSH keys"
-  type        = map
+  type        = map(any)
 }
 
 variable "rds_credentials_secret_name" {
