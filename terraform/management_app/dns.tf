@@ -17,7 +17,7 @@ resource "aws_route53_record" "mx" {
 }
 
 resource "aws_route53_record" "keybase" {
-  name    = "@"
+  name    = ""
   type    = "TXT"
   zone_id = aws_route53_zone.twindb_com.id
   ttl     = 3600
