@@ -16,3 +16,12 @@ resource "aws_route53_record" "mx" {
   ttl = 3600
 }
 
+resource "aws_route53_record" "keybase" {
+  name    = "@"
+  type    = "TXT"
+  zone_id = aws_route53_zone.twindb_com.id
+  ttl     = 3600
+  records = [
+    "keybase-site-verification=uSIV_E3WHxEKtnGNEQvjvMB7LsAhzJU9zqHDZGzKKrc"
+  ]
+}
