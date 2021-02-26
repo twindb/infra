@@ -1,4 +1,99 @@
 locals {
+  recovery_userdata = format(
+    "#cloud-config\n%s",
+    yamlencode(
+      {
+        "hostname" : "recovery.twindb.com"
+        "users" : [
+          {
+            name : "ubuntu",
+            ssh_authorized_keys : [
+              aws_key_pair.keypairs["deployer"].public_key
+            ],
+            sudo : "ALL=(ALL) NOPASSWD:ALL"
+          },
+          {
+            name : "aleks",
+            shell : "/bin/bash",
+            ssh_authorized_keys : [
+              aws_key_pair.keypairs["deployer"].public_key
+            ],
+            sudo : "ALL=(ALL) NOPASSWD:ALL"
+          },
+        ]
+        apt : {
+        }
+        package_update : true
+        packages : [
+          "awscli",
+          "bison",
+          "flex",
+          "git",
+          "jq",
+          "make"
+        ]
+        runcmd : [
+          ["git", "clone", "https://github.com/twindb/undrop-for-innodb.git", "/root/undrop-for-innodb"],
+          ["make", "-C", "/root/undrop-for-innodb"]
+        ]
+      }
+    )
+  )
+
+  db_userdata = format(
+    "#cloud-config\n%s",
+    yamlencode(
+      {
+        "hostname" : "db.twindb.com"
+        "users" : [
+          {
+            name : "ubuntu",
+            ssh_authorized_keys : [
+              aws_key_pair.keypairs["deployer"].public_key
+            ],
+            sudo : "ALL=(ALL) NOPASSWD:ALL"
+          },
+          {
+            name : "aleks",
+            shell : "/bin/bash",
+            ssh_authorized_keys : [
+              aws_key_pair.keypairs["deployer"].public_key
+            ],
+            sudo : "ALL=(ALL) NOPASSWD:ALL"
+          },
+        ]
+        "write_files" : [
+          {
+            content : file(
+              join("/", [path.module, "mysqld.cnf"])
+            ),
+            path : "/etc/mysql/mysql.conf.d/mysqld.cnf"
+
+          }
+        ]
+        apt : {
+        }
+        package_update : true
+        packages : [
+          "awscli",
+          "bison",
+          "flex",
+          "git",
+          "jq",
+          "make",
+          "mysql-client",
+          "mysql-server",
+          "net-tools"
+        ]
+        runcmd : [
+          ["systemctl", "start", "mysql"],
+          ["git", "clone", "https://github.com/twindb/undrop-for-innodb.git", "/root/undrop-for-innodb"],
+          ["make", "-C", "/root/undrop-for-innodb"]
+        ]
+      }
+    )
+  )
+
   userdata = format(
     "#cloud-config\n%s",
     yamlencode(

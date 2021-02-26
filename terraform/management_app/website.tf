@@ -1,6 +1,6 @@
 module "twindb_com" {
   source                 = "./../modules/terraform-aws-website-pod"
-  ami                    = data.aws_ami.ubuntu.id
+  ami                    = "ami-0074ee617a234808d"
   backend_subnets        = module.management_network.subnet_private_ids
   deployer_key_pair_name = aws_key_pair.keypairs["deployer"].key_name
   dns_zone               = aws_route53_zone.twindb_com.name
