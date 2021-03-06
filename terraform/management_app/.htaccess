@@ -3,6 +3,10 @@ RewriteEngine On
 Redirect 301 /how-to-recover-innodb-dictionary/ https://twindb.com/?p=73
 Redirect 301 /undrop-tool-for-innodb/ /undrop-for-innodb/
 Redirect 301 /data-recovery-toolkit/ /undrop-for-innodb/
+Redirect 301 /recover-after-drop-table-innodb_file_per_table-is-off/ /recovery-after-drop-table-with-innodb_file_per_table-off/
+Redirect 301 /recover-innodb-table-after-drop-table-innodb/ /recovery-after-drop-table-with-innodb_file_per_table-off/
+Redirect 301 /recover-after-drop-table-innodb_file_per_table-on/ /recovery-after-drop-table-with-innodb_file_per_table-on/
+Redirect 301 /recover-after-drop-table-innodb_file_per_table-is-on/ /recovery-after-drop-table-with-innodb_file_per_table-on/
 Redirect 301 /contact-us/ https://revdb.io/contact/
 
 RewriteBase /
